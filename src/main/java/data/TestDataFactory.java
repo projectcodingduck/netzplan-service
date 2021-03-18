@@ -22,6 +22,29 @@ public class TestDataFactory {
         return null;
     }
 
+    public List<Node> createWS2020NP() {
+        Node n1 = new Node(1, "1", 1, Collections.EMPTY_LIST);
+        Node n2 = new Node(2, "2", 25, Arrays.asList(n1));
+        Node n3 = new Node(3, "3", 15, Arrays.asList(n1));
+        Node n4 = new Node(4, "4", 20, Arrays.asList(n1));
+        Node n5 = new Node(5, "5", 1, Arrays.asList(n2, n3, n4));
+        Node n6 = new Node(6, "6", 10, Arrays.asList(n4));
+        Node n7 = new Node(7, "7", 30, Arrays.asList(n5, n6));
+        Node n8 = new Node(8, "8", 5, Arrays.asList(n7));
+
+        List<Node> nodes = new ArrayList<>();
+        nodes.add(n1);
+        nodes.add(n2);
+        nodes.add(n3);
+        nodes.add(n4);
+        nodes.add(n5);
+        nodes.add(n6);
+        nodes.add(n7);
+        nodes.add(n8);
+
+        return nodes;
+    }
+
     /**
      * HELP_NODE not needed here
      * @return

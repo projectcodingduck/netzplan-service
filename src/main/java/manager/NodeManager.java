@@ -123,7 +123,7 @@ public class NodeManager implements NodeManagerLocal {
             Node currentNode = nodes.get(i);
             if (currentNode.getNextNodes() != null && !currentNode.getNextNodes().isEmpty()) {
                 List<Node> nextNodesFrom = currentNode.getNextNodes();
-                int nextFaz = nextNodesFrom.stream().findFirst().get().getFaz(); // they should have the save value
+                int nextFaz = nextNodesFrom.stream().map(Node::getFaz).min(Integer::compareTo).get(); // get the smallest value
                 int currentFez = nodes.get(i).getFez();
                 nodes.get(i).setFp(nextFaz - currentFez);
             }
@@ -133,7 +133,7 @@ public class NodeManager implements NodeManagerLocal {
 
     /**
      * forward calculation
-     * criticalPath= node(s) = gp(0)
+     * criticalPath= node(s) = node.gp(0) & node.fp(0)
      * @param nodes
      * @return list with node numbers (asc)
      */
@@ -143,7 +143,7 @@ public class NodeManager implements NodeManagerLocal {
         for (Node node : nodes) {
             boolean isHelpNode = node.getName().equals(HELP_NODE);
 
-            if (node.getGp() == 0 && !isHelpNode) {
+            if (node.getGp() == 0 && node.getFp() == 0 && !isHelpNode) {
                 criticalPathNodes.add(node);
             }
         }
